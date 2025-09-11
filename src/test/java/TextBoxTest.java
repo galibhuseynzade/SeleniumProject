@@ -10,7 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 
 public class TextBoxTest {
     @Test
-    public void test() throws InterruptedException {
+    public void textBoxTest() throws InterruptedException {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
         WebDriver driver = new ChromeDriver(chromeOptions);
