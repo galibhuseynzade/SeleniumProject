@@ -63,5 +63,7 @@ public class TextBoxTest {
         WebElement outputText = driver.findElement(By.xpath(output));
         if (outputText.getText().contains("Galib Huseynzade")) System.out.println("Test passed!");
         else System.out.println("Test failed!");
+
+        driver.quit();
     }
 }
