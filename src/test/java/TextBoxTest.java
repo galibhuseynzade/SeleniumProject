@@ -13,6 +13,7 @@ public class TextBoxTest {
     public void textBoxTest() throws InterruptedException {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("disable-notifications");
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize();
         Actions actions = new Actions(driver);
