@@ -37,8 +37,8 @@ public class CheckBoxTest {
 
         String spanText = "//span[@class='rct-text']";
         WebElement spanTextButton = driver.findElement(By.xpath(spanText));
-        WebElement svg = spanTextButton.findElement(By.tagName("svg"));
-        String iconClass = svg.getAttribute("class");
+        WebElement svgText = spanTextButton.findElement(By.tagName("svg"));
+        String iconClass = svgText.getAttribute("class");
         Assertions.assertNotNull(iconClass);
         if (iconClass.contains("open")) {
 
@@ -66,6 +66,17 @@ public class CheckBoxTest {
             List<WebElement> resultList = driver.findElements(By.xpath(result));
             List<String> resultText = resultList.stream().map(WebElement::getText).toList();
             System.out.println(resultText);
+
+            actions.sendKeys(Keys.PAGE_UP).perform();
+
+            String home = "//label[@for='tree-node-home']//span[@class='rct-checkbox']";
+            WebElement homeButton = driver.findElement(By.xpath(home));
+            WebElement svgHome = homeButton.findElement(By.tagName("svg"));
+            String homeSelection = svgHome.getAttribute("class");
+            Assertions.assertNotNull(homeSelection);
+            if (homeSelection.contains("half")) {
+                System.out.println("Home is half selected");
+            }
         } else System.out.println("Test failed!");
 
         driver.quit();
