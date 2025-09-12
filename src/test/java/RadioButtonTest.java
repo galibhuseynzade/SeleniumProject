@@ -28,13 +28,6 @@ public class RadioButtonTest {
         WebElement textBoxButton = driver.findElement(By.xpath(textBox));
         textBoxButton.click();
 
-        String impressiveRadio = "//label[@for='impressiveRadio']";
-        WebElement impressiveRadioButton = driver.findElement(By.xpath(impressiveRadio));
-        String impressiveRadioButtonClass = impressiveRadioButton.getAttribute("class");
-        Assertions.assertNotNull(impressiveRadioButtonClass);
-        if (impressiveRadioButtonClass.contains("disabled")) System.out.println("Impressive button is disabled");
-        else impressiveRadioButton.click();
-
         String noRadio = "//label[@for='noRadio']";
         WebElement noRadioButton = driver.findElement(By.xpath(noRadio));
         String noRadioButtonClass = noRadioButton.getAttribute("class");
@@ -44,8 +37,32 @@ public class RadioButtonTest {
 
         String result = "//span[@class='text-success']";
         List<WebElement> resultList = driver.findElements(By.xpath(result));
-        List<String> resultText = resultList.stream().map(WebElement::getText).toList();
-        System.out.println(resultText);
+        List<String> resultTextList = resultList.stream().map(WebElement::getText).toList();
+        String resultText = "";
+
+        if (!resultTextList.isEmpty()) {
+            resultText = resultTextList.get(0);
+            Assertions.assertNotNull(resultText);
+        }
+
+        if (resultText.equals("Impressive")) {
+            System.out.println(resultText + " already selected");
+        } else {
+            String impressiveRadio = "//label[@for='impressiveRadio']";
+            WebElement impressiveRadioButton = driver.findElement(By.xpath(impressiveRadio));
+            String impressiveRadioButtonClass = impressiveRadioButton.getAttribute("class");
+            Assertions.assertNotNull(impressiveRadioButtonClass);
+            if (impressiveRadioButtonClass.contains("disabled"))
+                System.out.println("Impressive button is disabled");
+            else impressiveRadioButton.click();
+
+            resultList = driver.findElements(By.xpath(result));
+            resultTextList = resultList.stream().map(WebElement::getText).toList();
+            if (!resultTextList.isEmpty()) {
+                resultText = resultTextList.get(0);
+                System.out.println(resultText + " selected");
+            }
+        }
 
         driver.quit();
     }
