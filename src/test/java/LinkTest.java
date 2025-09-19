@@ -37,9 +37,16 @@ public class LinkTest {
         linksButton.click();
         String mainMenu = driver.getWindowHandle();
 
-        WebElement homeLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Home")));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", homeLink);
-        homeLink.click();
+        WebElement simpleLink = driver.findElement(By.id("simpleLink"));
+        String simpleLinkText = simpleLink.getText();
+        WebElement simpleLinkButton = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(simpleLinkText)));
+        simpleLinkButton.click();
+
+        WebElement dynamicLink = driver.findElement(By.id("dynamicLink"));
+        String dynamicLinkText = dynamicLink.getText();
+        WebElement dynamicLinkButton = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(dynamicLinkText)));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dynamicLinkButton);
+        dynamicLinkButton.click();
 
         Set<String> allWindows = driver.getWindowHandles();
         List<String> windowList = new ArrayList<>(allWindows);
@@ -59,8 +66,11 @@ public class LinkTest {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", createdLink);
         createdLink.click();
 
-        WebElement createdResponse = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[@id='linkResponse']/b")));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", createdResponse);
-        System.out.println("Created link click response: " + createdLink.getText());
+        WebElement responseStatusCode = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[@id='linkResponse']/b[1]")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", responseStatusCode);
+        WebElement responseText = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[@id='linkResponse']/b[2]")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", responseText);
+        System.out.println("Status Code: " + responseStatusCode.getText());
+        System.out.println("Text : " + responseText.getText());
     }
 }
