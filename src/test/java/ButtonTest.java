@@ -32,19 +32,19 @@ public class ButtonTest {
         WebElement buttonsButton = driver.findElement(By.xpath(buttons));
         buttonsButton.click();
 
-        actions.sendKeys(Keys.PAGE_DOWN).perform();
-        Thread.sleep(2000);
-
         String doubleClickSuccessMessage = "You have done a double click";
-        WebElement doubleClickButton = driver.findElement(By.id("doubleClickBtn"));
+        WebElement doubleClickButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("doubleClickBtn")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", doubleClickButton);
         actions.doubleClick(doubleClickButton).perform();
 
         String rightClickSuccessMessage = "You have done a right click";
-        WebElement rightClickButton = driver.findElement(By.id("rightClickBtn"));
+        WebElement rightClickButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("rightClickBtn")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", rightClickButton);
         actions.contextClick(rightClickButton).perform();
 
         String dynamicClickSuccessMessage = "You have done a dynamic click";
-        WebElement dynamicClickButton = driver.findElement(By.xpath("//button[@class='btn btn-primary'][.='Click Me']"));
+        WebElement dynamicClickButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='btn btn-primary'][.='Click Me']")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", dynamicClickButton);
         dynamicClickButton.click();
 
         List<WebElement> doubleClickMessageList = driver.findElements(By.id("doubleClickMessage"));
