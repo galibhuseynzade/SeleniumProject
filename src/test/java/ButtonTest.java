@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ButtonTest {
     @Test
-    public void buttonTest() throws InterruptedException {
+    public void buttonTest() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("disable-notifications");
