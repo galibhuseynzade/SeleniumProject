@@ -41,9 +41,8 @@ public class FileDownloadUploadTest {
 
         Thread.sleep(2000);
 
-        String filePath = "C:/Users/galib/Downloads/";
-        String fileName = "sampleFile.jpeg";
-        File file = new File(filePath + fileName);
+        String filePath = "C:\\Users\\galib.huseynzade.n\\Downloads\\sampleFile.jpeg";
+        File file = new File(filePath);
 
         if (file.exists()) {
             System.out.println("File downloaded successfully");
