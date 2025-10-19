@@ -1,10 +1,10 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
-import org.openqa.selenium.By;
+import helper.ClickHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,31 +13,33 @@ import java.util.Set;
 public class LinksPage {
 
     private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
 
     public LinksPage(WebDriver driver) {
         this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By simpleLink = By.id("simpleLink");
-    private final By dynamicLink = By.id("dynamicLink");
-    private final By createdLink = By.id("created");
-    private final By responseStatusCode = By.xpath("//p[@id='linkResponse']/b[1]");
-    private final By responseText = By.xpath("//p[@id='linkResponse']/b[2]");
+    @FindBy(id = "simpleLink")
+    WebElement simpleLink;
+
+    @FindBy(id = "dynamicLink")
+    WebElement dynamicLink;
+
+    @FindBy(id = "created")
+    WebElement createdLink;
+
+    @FindBy(xpath = "//p[@id='linkResponse']/b[1]")
+    WebElement responseStatusCode;
+
+    @FindBy(xpath = "//p[@id='linkResponse']/b[2]")
+    WebElement responseText;
 
     public void openSimpleLink() {
-        WebElement link = wait.untilClickable(simpleLink);
-        js.scrollIntoView(link);
-        link.click();
+        ClickHelper.click(simpleLink);
     }
 
     public void openDynamicLink() {
-        WebElement link = wait.untilClickable(dynamicLink);
-        js.scrollIntoView(link);
-        link.click();
+        ClickHelper.click(dynamicLink);
     }
 
     public void switchToNewTab() {
@@ -58,18 +60,14 @@ public class LinksPage {
     }
 
     public void clickCreatedLink() {
-        WebElement created = wait.untilClickable(createdLink);
-        js.scrollIntoView(created);
-        created.click();
+        ClickHelper.click(createdLink);
     }
 
     public String getResponseStatusCode() {
-        WebElement code = wait.untilVisible(responseStatusCode);
-        return code.getText();
+        return responseStatusCode.getText();
     }
 
     public String getResponseText() {
-        WebElement text = wait.untilVisible(responseText);
-        return text.getText();
+        return responseText.getText();
     }
 }

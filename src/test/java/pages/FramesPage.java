@@ -1,38 +1,39 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import util.Waiter;
 
 public class FramesPage {
 
     private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
 
     public FramesPage(WebDriver driver) {
         this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By frame1 = By.id("frame1");
-    private final By frame2 = By.id("frame2");
-    private final By sampleHeading = By.id("sampleHeading");
+    @FindBy(id = "frame1")
+    WebElement frame1;
+
+    @FindBy(id = "frame2")
+    WebElement frame2;
+
+    @FindBy(id = "sampleHeading")
+    WebElement sampleHeading;
 
     public void switchToFrame1() {
-        driver.switchTo().frame(wait.untilVisible(frame1));
+        driver.switchTo().frame(Waiter.untilVisible(frame1));
     }
 
     public void switchToFrame2() {
-        driver.switchTo().frame(wait.untilVisible(frame2));
+        driver.switchTo().frame(Waiter.untilVisible(frame2));
     }
 
     public String getFrameText() {
-        WebElement text = wait.untilVisible(sampleHeading);
-        return text.getText();
+        return Waiter.untilVisible(sampleHeading).getText();
     }
 
     public void switchToDefault() {

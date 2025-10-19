@@ -1,64 +1,47 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import helper.ClickHelper;
+import util.Waiter;
 
 public class AlertsPage {
-
-    private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
-
     public AlertsPage(WebDriver driver) {
-        this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By alertButton = By.id("alertButton");
-    private final By timerAlertButton = By.id("timerAlertButton");
-    private final By confirmButton = By.id("confirmButton");
-    private final By promptButton = By.id("promtButton");
+    @FindBy(id = "alertButton")
+    WebElement alertButton;
+
+    @FindBy(id = "timerAlertButton")
+    WebElement timerAlertButton;
+
+    @FindBy(id = "confirmButton")
+    WebElement confirmButton;
+
+    @FindBy(id = "promtButton")
+    WebElement promptButton;
 
     public void triggerImmediateAlert() {
-        WebElement btn = wait.untilClickable(alertButton);
-        js.scrollIntoView(btn);
-        btn.click();
-        wait.untilAlertPresent();
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
+        ClickHelper.click(alertButton);
+        Waiter.untilAlertPresent().accept();
     }
 
     public void triggerTimerAlert() {
-        WebElement btn = wait.untilClickable(timerAlertButton);
-        js.scrollIntoView(btn);
-        btn.click();
-        wait.untilAlertPresent();
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
+        ClickHelper.click(timerAlertButton);
+        Waiter.untilAlertPresent().accept();
     }
 
-    public void triggerConfirmAlert(boolean accept) {
-        WebElement btn = wait.untilClickable(confirmButton);
-        js.scrollIntoView(btn);
-        btn.click();
-        wait.untilAlertPresent();
-        Alert alert = driver.switchTo().alert();
-        if (accept) alert.accept();
-        else alert.dismiss();
+    public void triggerConfirmAlert() {
+        ClickHelper.click(confirmButton);
+        Waiter.untilAlertPresent().dismiss();
     }
 
     public void triggerPromptAlert(String inputText) {
-        WebElement btn = wait.untilClickable(promptButton);
-        js.scrollIntoView(btn);
-        btn.click();
-        wait.untilAlertPresent();
-        Alert alert = driver.switchTo().alert();
-        alert.sendKeys(inputText);
-        alert.accept();
+        ClickHelper.click(promptButton);
+        Waiter.untilAlertPresent().sendKeys(inputText);
+        Waiter.untilAlertPresent().accept();
     }
 }

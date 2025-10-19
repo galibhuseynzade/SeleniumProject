@@ -1,7 +1,7 @@
 package base;
 
 import config.ConfigReader;
-import core.DriverManager;
+import util.DriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;

@@ -1,48 +1,44 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
-import org.openqa.selenium.By;
+import helper.ClickHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import util.Waiter;
 
 public class RadioButtonPage {
 
-    private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
-
     public RadioButtonPage(WebDriver driver) {
-        this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By yesRadioLabel = By.xpath("//label[@for='yesRadio']");
-    private final By impressiveRadioLabel = By.xpath("//label[@for='impressiveRadio']");
-    private final By noRadioLabel = By.xpath("//label[@for='noRadio']");
-    private final By resultText = By.xpath("//span[@class='text-success']");
+    @FindBy(xpath = "//label[@for='yesRadio']")
+    WebElement yesRadioLabel;
+
+    @FindBy(xpath = "//label[@for='impressiveRadio']")
+    WebElement impressiveRadioLabel;
+
+    @FindBy(xpath = "//label[@for='noRadio']")
+    WebElement noRadioLabel;
+
+    @FindBy(xpath = "//span[@class='text-success']")
+    WebElement resultText;
 
     public void selectYes() {
-        WebElement yes = wait.untilClickable(yesRadioLabel);
-        js.scrollIntoView(yes);
-        yes.click();
+        ClickHelper.click(yesRadioLabel);
     }
 
     public void selectImpressive() {
-        WebElement impressive = wait.untilClickable(impressiveRadioLabel);
-        js.scrollIntoView(impressive);
-        impressive.click();
+        ClickHelper.click(impressiveRadioLabel);
     }
 
     public boolean isNoDisabled() {
-        WebElement noLabel = driver.findElement(noRadioLabel);
-        String classAttr = noLabel.getAttribute("class");
+        String classAttr = noRadioLabel.getAttribute("class");
         return classAttr != null && classAttr.contains("disabled");
     }
 
     public String getSelectedText() {
-        WebElement text = wait.untilVisible(resultText);
-        return text.getText();
+        return Waiter.untilVisible(resultText).getText();
     }
 }

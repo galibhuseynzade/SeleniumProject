@@ -1,51 +1,41 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import helper.ClickHelper;
 
 public class AlertsFramesWindowsPage {
-
-    private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
-
     public AlertsFramesWindowsPage(WebDriver driver) {
-        this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    // Locators
-    private final By browserWindowsMenu = By.xpath("//span[normalize-space()='Browser Windows']");
-    private final By alertsMenu = By.xpath("//span[normalize-space()='Alerts']");
-    private final By framesMenu = By.xpath("//span[normalize-space()='Frames']");
-    private final By nestedFramesMenu = By.xpath("//span[normalize-space()='Nested Frames']");
+    @FindBy(xpath = "//span[normalize-space()='Browser Windows']")
+    WebElement browserWindowsMenu;
 
-    // Navigation methods
+    @FindBy(xpath = "//span[normalize-space()='Alerts']")
+    WebElement alertsMenu;
+
+    @FindBy(xpath = "//span[normalize-space()='Frames']")
+    WebElement framesMenu;
+
+    @FindBy(xpath = "//span[normalize-space()='Nested Frames']")
+    WebElement nestedFramesMenu;
+
     public void openBrowserWindows() {
-        WebElement menu = wait.untilClickable(browserWindowsMenu);
-        js.scrollIntoView(menu);
-        menu.click();
+        ClickHelper.click(browserWindowsMenu);
     }
 
     public void openAlerts() {
-        WebElement menu = wait.untilClickable(alertsMenu);
-        js.scrollIntoView(menu);
-        menu.click();
+        ClickHelper.click(alertsMenu);
     }
 
     public void openFrames() {
-        WebElement menu = wait.untilClickable(framesMenu);
-        js.scrollIntoView(menu);
-        menu.click();
+        ClickHelper.click(framesMenu);
     }
 
     public void openNestedFrames() {
-        WebElement menu = wait.untilClickable(nestedFramesMenu);
-        js.scrollIntoView(menu);
-        menu.click();
+        ClickHelper.click(nestedFramesMenu);
     }
 }

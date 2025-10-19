@@ -1,65 +1,56 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
-import org.openqa.selenium.By;
+import helper.ClickHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import util.Waiter;
 
 public class TextBoxPage {
-
-    private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
-    private final Actions actions;
-
     public TextBoxPage(WebDriver driver) {
-        this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
-        this.actions = new Actions(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By fullNameInput = By.id("userName");
-    private final By emailInput = By.id("userEmail");
-    private final By currentAddressInput = By.id("currentAddress");
-    private final By permanentAddressInput = By.id("permanentAddress");
-    private final By submitButton = By.id("submit");
-    private final By outputName = By.xpath("//div[@id='output']//div/p[@id='name']");
+    @FindBy(id = "userName")
+    WebElement fullNameInput;
+
+    @FindBy(id = "userEmail")
+    WebElement emailInput;
+
+    @FindBy(id = "currentAddress")
+    WebElement currentAddressInput;
+
+    @FindBy(id = "permanentAddress")
+    WebElement permanentAddressInput;
+
+    @FindBy(id = "submit")
+    WebElement submitButton;
+
+    @FindBy(xpath = "//div[@id='output']//div/p[@id='name']")
+    WebElement outputName;
 
     public void fillFullName(String name) {
-        WebElement el = wait.untilClickable(fullNameInput);
-        el.clear();
-        el.sendKeys(name);
+        Waiter.untilClickable(fullNameInput).sendKeys(name);
     }
 
     public void fillEmail(String email) {
-        WebElement el = wait.untilClickable(emailInput);
-        el.clear();
-        el.sendKeys(email);
+        Waiter.untilClickable(emailInput).sendKeys(email);
     }
 
     public void fillCurrentAddress(String address) {
-        WebElement el = wait.untilClickable(currentAddressInput);
-        el.clear();
-        el.sendKeys(address);
+        Waiter.untilClickable(currentAddressInput).sendKeys(address);
     }
 
     public void fillPermanentAddress(String address) {
-        WebElement el = wait.untilClickable(permanentAddressInput);
-        el.clear();
-        el.sendKeys(address);
+        Waiter.untilClickable(permanentAddressInput).sendKeys(address);
     }
 
     public void submitForm() {
-        WebElement button = wait.untilClickable(submitButton);
-        js.scrollIntoView(button);
-        actions.moveToElement(button).click().perform();
+        ClickHelper.click(submitButton);
     }
 
     public String getOutputNameText() {
-        WebElement nameOutput = wait.untilVisible(outputName);
-        return nameOutput.getText();
+        return Waiter.untilVisible(outputName).getText();
     }
 }

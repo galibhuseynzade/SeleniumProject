@@ -1,28 +1,21 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
-import org.openqa.selenium.By;
+import helper.ClickHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class FormsPage {
 
-    private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
-
     public FormsPage(WebDriver driver) {
-        this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By practiceFormMenu = By.xpath("//span[normalize-space()='Practice Form']");
+    @FindBy(xpath = "//span[normalize-space()='Practice Form']")
+    WebElement practiceFormMenu;
 
     public void openPracticeForm() {
-        WebElement menu = wait.untilClickable(practiceFormMenu);
-        js.scrollIntoView(menu);
-        menu.click();
+        ClickHelper.click(practiceFormMenu);
     }
 }

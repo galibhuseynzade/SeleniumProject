@@ -1,57 +1,67 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
+import helper.ClickHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import util.Js;
 
 public class WebTablesPage {
-
     private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
 
     public WebTablesPage(WebDriver driver) {
         this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By addButton = By.id("addNewRecordButton");
-    private final By firstNameInput = By.id("firstName");
-    private final By lastNameInput = By.id("lastName");
-    private final By emailInput = By.id("userEmail");
-    private final By ageInput = By.id("age");
-    private final By salaryInput = By.id("salary");
-    private final By departmentInput = By.id("department");
-    private final By submitButton = By.id("submit");
+    @FindBy(id = "addNewRecordButton")
+    WebElement addButton;
+
+    @FindBy(id = "firstName")
+    WebElement firstNameInput;
+
+    @FindBy(id = "lastName")
+    WebElement lastNameInput;
+
+    @FindBy(id = "userEmail")
+    WebElement emailInput;
+
+    @FindBy(id = "age")
+    WebElement ageInput;
+
+    @FindBy(id = "salary")
+    WebElement salaryInput;
+
+    @FindBy(id = "department")
+    WebElement departmentInput;
+
+    @FindBy(id = "submit")
+    WebElement submitButton;
+
 
     public void clickAddButton() {
-        WebElement btn = wait.untilClickable(addButton);
-        js.scrollIntoView(btn);
-        btn.click();
+        ClickHelper.click(addButton);
     }
 
     public void fillForm(String firstName, String lastName, String email, String age, String salary, String department) {
-        wait.untilVisible(firstNameInput).sendKeys(firstName);
-        driver.findElement(lastNameInput).sendKeys(lastName);
-        driver.findElement(emailInput).sendKeys(email);
-        driver.findElement(ageInput).sendKeys(age);
-        driver.findElement(salaryInput).sendKeys(salary);
-        driver.findElement(departmentInput).sendKeys(department);
+        firstNameInput.sendKeys(firstName);
+        lastNameInput.sendKeys(lastName);
+        emailInput.sendKeys(email);
+        ageInput.sendKeys(age);
+        salaryInput.sendKeys(salary);
+        departmentInput.sendKeys(department);
     }
 
     public void submitForm() {
-        WebElement btn = driver.findElement(submitButton);
-        js.scrollIntoView(btn);
-        btn.click();
+        ClickHelper.click(submitButton);
     }
 
     public void deleteRecordByFirstName(String firstName) {
         String deleteXpath = "//div[contains(@class, 'rt-tr')]/div[@class='rt-td' and text()='" + firstName + "']/..//span[@title='Delete']";
-        WebElement deleteBtn = wait.untilClickable(By.xpath(deleteXpath));
-        js.scrollIntoView(deleteBtn);
+        WebElement deleteBtn = driver.findElement(By.xpath(deleteXpath));
+        Js.scrollIntoView(deleteBtn);
         deleteBtn.click();
     }
 }

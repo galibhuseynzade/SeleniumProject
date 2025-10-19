@@ -1,35 +1,40 @@
 package pages;
 
-import core.Waiter;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import util.Waiter;
 
 public class NestedFramesPage {
 
     private final WebDriver driver;
-    private final Waiter wait;
 
     public NestedFramesPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By parentFrame = By.id("frame1");
-    private final By childFrame = By.xpath("//iframe[@srcdoc='<p>Child Iframe</p>']");
-    private final By body = By.tagName("body");
+    @FindBy(id = "frame1")
+    WebElement parentFrame;
+
+    @FindBy(xpath = "//iframe[@srcdoc='<p>Child Iframe</p>']")
+    WebElement childFrame;
+
+    @FindBy(tagName = "body")
+    WebElement body;
 
     public void switchToParentFrame() {
-        driver.switchTo().frame(wait.untilVisible(parentFrame));
+        driver.switchTo().frame(Waiter.untilVisible(parentFrame));
     }
 
     public void switchToChildFrame() {
-        WebElement frame = wait.untilVisible(childFrame);
+        WebElement frame = Waiter.untilVisible(childFrame);
         driver.switchTo().frame(frame);
     }
 
     public String getBodyText() {
-        WebElement text = wait.untilVisible(body);
+        WebElement text = Waiter.untilVisible(body);
         return text.getText();
     }
 

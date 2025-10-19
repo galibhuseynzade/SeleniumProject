@@ -2,7 +2,9 @@ package tests;
 
 import base.BaseTest;
 import org.junit.jupiter.api.Test;
-import pages.*;
+import pages.ElementsPage;
+import pages.HomePage;
+import pages.TextBoxPage;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

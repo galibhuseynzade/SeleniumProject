@@ -17,7 +17,7 @@ public class AlertTest extends BaseTest {
         AlertsPage alerts = new AlertsPage(driver);
         alerts.triggerImmediateAlert();
         alerts.triggerTimerAlert();
-        alerts.triggerConfirmAlert(false);
+        alerts.triggerConfirmAlert();
         alerts.triggerPromptAlert("hello");
     }
 }

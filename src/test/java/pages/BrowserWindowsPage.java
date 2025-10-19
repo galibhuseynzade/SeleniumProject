@@ -1,38 +1,34 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import helper.ClickHelper;
 
 import java.util.Set;
 
 public class BrowserWindowsPage {
 
     private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
 
     public BrowserWindowsPage(WebDriver driver) {
         this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By newTabButton = By.id("tabButton");
-    private final By newWindowButton = By.id("windowButton");
+    @FindBy(id = "tabButton")
+    WebElement newTabButton;
+
+    @FindBy(id = "windowButton")
+    WebElement newWindowButton;
 
     public void openNewTab() {
-        WebElement tab = wait.untilClickable(newTabButton);
-        js.scrollIntoView(tab);
-        tab.click();
+        ClickHelper.click(newTabButton);
     }
 
     public void openNewWindow() {
-        WebElement window = wait.untilClickable(newWindowButton);
-        js.scrollIntoView(window);
-        window.click();
+        ClickHelper.click(newWindowButton);
     }
 
     public void switchToNewWindow() {

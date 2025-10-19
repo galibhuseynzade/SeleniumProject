@@ -1,32 +1,28 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
-import org.openqa.selenium.By;
+import helper.ClickHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import util.Js;
+import util.Waiter;
 
 import java.io.File;
 
 public class UploadDownloadPage {
-
-    private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
-
     public UploadDownloadPage(WebDriver driver) {
-        this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By downloadButton = By.id("downloadButton");
-    private final By uploadButton = By.id("uploadFile");
+    @FindBy(id = "downloadButton")
+    WebElement downloadButton;
+
+    @FindBy(id = "uploadFile")
+    WebElement uploadButton;
 
     public void clickDownloadButton() {
-        WebElement download = wait.untilClickable(downloadButton);
-        js.scrollIntoView(download);
-        download.click();
+        ClickHelper.click(downloadButton);
     }
 
     public boolean isFileDownloaded(String filePath) {
@@ -35,8 +31,8 @@ public class UploadDownloadPage {
     }
 
     public void uploadFile(String filePath) {
-        WebElement upload = wait.untilClickable(uploadButton);
-        js.scrollIntoView(upload);
+        WebElement upload = Waiter.untilClickable(uploadButton);
+        Js.scrollIntoView(upload);
         upload.sendKeys(filePath);
     }
 }

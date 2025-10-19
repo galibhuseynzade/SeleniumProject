@@ -1,35 +1,28 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
-import org.openqa.selenium.By;
+import helper.ClickHelper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class WidgetsPage {
 
-    private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
-
     public WidgetsPage(WebDriver driver) {
-        this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By sliderMenu = By.xpath("//span[normalize-space()='Slider']");
-    private final By progressBarMenu = By.xpath("//span[normalize-space()='Progress Bar']");
+    @FindBy(xpath = "//span[normalize-space()='Slider']")
+    WebElement sliderMenu;
+
+    @FindBy(xpath = "//span[normalize-space()='Progress Bar']")
+    WebElement progressBarMenu;
 
     public void openSlider() {
-        WebElement menu = wait.untilClickable(sliderMenu);
-        js.scrollIntoView(menu);
-        menu.click();
+        ClickHelper.click(sliderMenu);
     }
 
     public void openProgressBar() {
-        WebElement menu = wait.untilClickable(progressBarMenu);
-        js.scrollIntoView(menu);
-        menu.click();
+        ClickHelper.click(progressBarMenu);
     }
 }

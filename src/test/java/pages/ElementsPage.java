@@ -1,77 +1,69 @@
 package pages;
 
-import core.Js;
-import core.Waiter;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import helper.ClickHelper;
 
 public class ElementsPage {
-
-    private final WebDriver driver;
-    private final Js js;
-    private final Waiter wait;
-
     public ElementsPage(WebDriver driver) {
-        this.driver = driver;
-        this.js = new Js(driver);
-        this.wait = new Waiter(driver);
+        PageFactory.initElements(driver, this);
     }
 
-    private final By textBoxMenu = By.xpath("//span[text()='Text Box']");
-    private final By checkBoxMenu = By.xpath("//span[text()='Check Box']");
-    private final By radioButtonMenu = By.xpath("//span[text()='Radio Button']");
-    private final By webTablesMenu = By.xpath("//span[text()='Web Tables']");
-    private final By buttonsMenu = By.xpath("//span[text()='Buttons']");
-    private final By linksMenu = By.xpath("//span[text()='Links']");
-    private final By uploadDownloadMenu = By.xpath("//span[text()='Upload and Download']");
-    private final By dynamicPropertiesMenu = By.xpath("//span[text()='Dynamic Properties']");
+    @FindBy(xpath = "//span[text()='Text Box']")
+    WebElement textBoxMenu;
+
+    @FindBy(xpath = "//span[text()='Check Box']")
+    WebElement checkBoxMenu;
+
+    @FindBy(xpath = "//span[text()='Radio Button']")
+    WebElement radioButtonMenu;
+
+    @FindBy(xpath = "//span[text()='Web Tables']")
+    WebElement webTablesMenu;
+
+    @FindBy(xpath = "//span[text()='Buttons']")
+    WebElement buttonsMenu;
+
+    @FindBy(xpath = "//span[text()='Links']")
+    WebElement linksMenu;
+
+    @FindBy(xpath = "//span[text()='Upload and Download']")
+    WebElement uploadDownloadMenu;
+
+    @FindBy(xpath = "//span[text()='Dynamic Properties']")
+    WebElement dynamicPropertiesMenu;
 
     public void openTextBox() {
-        WebElement item = wait.untilClickable(textBoxMenu);
-        js.scrollIntoView(item);
-        item.click();
+        ClickHelper.click(textBoxMenu);
     }
 
     public void openCheckBox() {
-        WebElement item = wait.untilClickable(checkBoxMenu);
-        js.scrollIntoView(item);
-        item.click();
+        ClickHelper.click(checkBoxMenu);
     }
 
     public void openRadioButton() {
-        WebElement item = wait.untilClickable(radioButtonMenu);
-        js.scrollIntoView(item);
-        item.click();
+        ClickHelper.click(radioButtonMenu);
     }
 
     public void openWebTables() {
-        WebElement item = wait.untilClickable(webTablesMenu);
-        js.scrollIntoView(item);
-        item.click();
+        ClickHelper.click(webTablesMenu);
     }
 
     public void openButtons() {
-        WebElement item = wait.untilClickable(buttonsMenu);
-        js.scrollIntoView(item);
-        item.click();
+        ClickHelper.click(buttonsMenu);
     }
 
     public void openLinks() {
-        WebElement item = wait.untilClickable(linksMenu);
-        js.scrollIntoView(item);
-        item.click();
+        ClickHelper.click(linksMenu);
     }
 
     public void openUploadDownload() {
-        WebElement item = wait.untilClickable(uploadDownloadMenu);
-        js.scrollIntoView(item);
-        item.click();
+        ClickHelper.click(uploadDownloadMenu);
     }
 
     public void openDynamicProperties() {
-        WebElement item = wait.untilClickable(dynamicPropertiesMenu);
-        js.scrollIntoView(item);
-        item.click();
+        ClickHelper.click(dynamicPropertiesMenu);
     }
 }
